@@ -8,6 +8,9 @@ app.use(bodyParser);
 
 app.post('/', UserController.createUser);
 app.get('/', UserController.getAllUser);
+app.get('/:userId', UserController.getOneUser);
+app.put('/:userId', UserController.updateUser);
+app.delete('/:userId', UserController.deleteUser);
 
 
 
