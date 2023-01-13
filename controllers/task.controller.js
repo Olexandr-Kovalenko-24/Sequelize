@@ -21,7 +21,7 @@ module.exports.getAllUserTasks = async (req, res, next) => {
     }
 }
 
-module.exports.getOneTask = async(req, res, next) => {
+module.exports.getOneTask = async (req, res, next) => {
     try {
         const {params: {taskId}} = req;
         const task = await Task.findByPk(taskId);
@@ -32,7 +32,18 @@ module.exports.getOneTask = async(req, res, next) => {
 }
 
 module.exports.updateTask = async (req, res, next) => {
-
+    try {
+        const {params: {taskId}, body} = req;
+        const [rowCount, [updatedTask]] = await Task.update(body, { 
+            returning: true, 
+            where: { 
+                id: taskId 
+            }
+        });
+        res.status(200).send({updatedTask});
+    } catch (error) {
+        next(error);
+    }
 }
 
 module.exports.deleteTask = async (req, res, next) => {

@@ -1,0 +1,6 @@
+PUT http://localhost:5000/api/tasks/3
+Content-type: application/json
+
+{
+    "body": "change task"
+}
