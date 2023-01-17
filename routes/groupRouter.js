@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const GroupController = require('../controllers/group.controller');
+const {getUserInstance} = require('../middlewares/getUserInstance')
 
 const groupRouter = Router();
 
@@ -8,7 +9,7 @@ groupRouter.post('/:groupId', GroupController.addUserToGroup);
 groupRouter.get('/:groupId', GroupController.getGroupWithMembers);
 groupRouter.put('/:groupId', GroupController.updateGroup); 
 groupRouter.delete('/:groupId', GroupController.deleteGroup);
-groupRouter.delete('/:groupId/:userId', GroupController.deleteUserFromGroup);
+groupRouter.delete('/:userId/:groupId', getUserInstance, GroupController.deleteUserFromGroup);
 
 
 

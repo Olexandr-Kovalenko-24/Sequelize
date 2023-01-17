@@ -48,9 +48,8 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
 
 module.exports.updateGroup = async (req, res, next) => {
     try {
-        const {params: {groupId}, body: {name, description}} = req;
-        const group = await Group.findByPk(groupId);
-        const result = await group.update({name, description}, { 
+        const {params: {groupId}, body: {name, imagePath, description}} = req;
+        const result = await Group.update({name, imagePath, description}, { 
             returning: true, 
             where: { 
                 id: groupId 
@@ -81,10 +80,8 @@ module.exports.deleteGroup = async (req, res, next) => {
 
 module.exports.deleteUserFromGroup = async (req, res, next) => {
     try {
-        const {params: {groupId, userId}} = req;
-        console.log(groupId, userId);
+        const {params: {groupId}, userInstance} = req;
         const groupInstance = await Group.findByPk(groupId);
-        const userInstance = await User.findByPk(userId);
         const result = await groupInstance.removeUser(userInstance);
         res.status(200).send({data: result});
     } catch (error) {
