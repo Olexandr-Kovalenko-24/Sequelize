@@ -88,3 +88,19 @@ module.exports.deleteUserFromGroup = async (req, res, next) => {
         next(error)
     }
 }
+
+
+module.exports.createGroupImage = async (req, res, next) => {
+    try {
+        const {params: {groupId}, file: {filename}} = req;
+        const [rowCount, [result]] = await Group.update({imagePath: filename}, { 
+            returning: true, 
+            where: { 
+                id: groupId 
+            }
+        });
+        res.status(200).send(result);
+    } catch (error) {
+        next(error)
+    }
+}
