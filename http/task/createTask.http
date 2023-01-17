@@ -2,7 +2,7 @@ POST http://localhost:5000/api/tasks/2 HTTP/1.1
 Content-Type: application/json
 
 {
-    "body": "task to do",
+    "body": "one more task 8",
     "status": "new",
-    "deadline": "2023-02-04"
+    "deadline": "2023-12-14"
 }

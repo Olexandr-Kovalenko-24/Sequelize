@@ -1,14 +1,15 @@
 const {User} = require('../models');
+const NotFoundError = require('../errors/NotFound');
 
 module.exports.getUserInstance = async(req, res, next) => {
     try {
         const {params: {userId}} = req;
         const user = await User.findByPk(userId);
-        if(user){
+        if(user) {
             req.userInstance = user;
             next()
         } else {
-            res.status(404).send({error: 'No user'});
+            throw new NotFoundError('User not found');
         }
     } catch (error) {
         next(error)

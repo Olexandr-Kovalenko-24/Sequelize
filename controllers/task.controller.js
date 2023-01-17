@@ -1,6 +1,6 @@
 const {Task, User} = require('../models');
 
-module.exports.createTask = async (req, res, next) => {
+module.exports.createOneTask = async (req, res, next) => {
     try {
         const {body, userInstance} = req;
         // const createdTask = await Task.create({...body, userId});
@@ -13,8 +13,10 @@ module.exports.createTask = async (req, res, next) => {
 
 module.exports.getAllUserTasks = async (req, res, next) => {
     try {
-        const {userInstance} = req;
-        const alltasks = await userInstance.getTasks();
+        const {userInstance, pagination} = req;
+        const alltasks = await userInstance.getTasks({
+            ...pagination
+        });
         res.status(200).send(alltasks);
     } catch (error) {
         next(error);
