@@ -72,7 +72,7 @@ module.exports.deleteGroup = async (req, res, next) => {
         if(!group){
             throw new NotFoundError('Group not found');
         }
-        res.status(200).send({ data: group });
+        res.status(204).send();
     } catch (error) {
         next(error);
     }
